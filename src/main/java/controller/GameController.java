@@ -1,36 +1,45 @@
 package controller;
 
-import model.Car;
-import model.Game;
-import model.Results;
+import model.Cars;
+import util.InputValidator;
 import view.InputView;
-import view.ResultView;
 
 public class GameController {
 
-    private final Car car;
-
-    private final Game game;
-
-    private final InputView inputView;
-    private final ResultView resultView;
-
-    public GameController() {
-        this.car = new Car("TEST");
-        this.game = new Game();
-        this.inputView = new InputView();
-        this.resultView = new ResultView();
-    }
+    private Cars cars;
+    private int tryCount;
 
     public void start() {
-        String carNames = inputView.getCarNames();
-        int tryCount = inputView.getTryCount();
+        init();
+        race();
+        result();
+    }
 
-        Results results = new Results();
-        for (int i = 0; i < tryCount; i++) {
-            results = game.race();
-            resultView.printResult(results);
+    private void init() {
+        InputView.askCarNames();
+        initCars(InputView.getConsoleInput());
+        InputView.askTryCount();
+        initTryCount(InputView.getConsoleInput());
+    }
+
+    private void initCars(final String carNames) {
+        cars = new Cars(carNames);
+    }
+
+    private void initTryCount(final String tryCount) {
+        this.tryCount = InputValidator.getTryCount(tryCount);
+    }
+
+    private void race() {
+        int playCount = 0;
+        while (playCount != tryCount) {
+            cars.move();
+            cars.moveResult();
+            playCount++;
         }
-        resultView.printWinners(results);
+    }
+
+    private void result() {
+        cars.pickWinners();
     }
 }

@@ -1,25 +1,42 @@
 package model;
 
-import lombok.Getter;
+import view.ResultView;
 
-@Getter
 public class Car {
 
-    private final String name;
-    private int position = 0;
+    private final Name name;
+    private final Position position;
 
     public Car(String name) {
-        if (name.length() > 5)
-            throw new IllegalArgumentException("[ERROR] 자동차 이름은 5자 이하만 가능합니다.");
+        this(name, 0);
+    }
 
-        this.name = name;
+    public Car(String name, int position) {
+        this.name = new Name(name);
+        this.position = new Position(position);
     }
 
     public void move() {
-        int randomNumber = (int) (Math.random() * 10);
-        if (randomNumber < 4)
+        if (!position.canMove())
             return;
 
-        this.position++;
+        position.increasePosition();
+    }
+
+    public void printCurrPosition() {
+        String display = "-".repeat(Math.max(0, position.getPosition()));
+        ResultView.printText(name.getName() + ": " + display);
+//        ResultView.printText(name.getName() + ": " + position.getPosition());
+    }
+
+    public int getCurrentPosition() {
+        return position.getPosition();
+    }
+
+    public String getNameIfWin(int winnerPosition) {
+        if (position.getPosition() == winnerPosition)
+            return name.getName() + ", ";
+
+        return "";
     }
 }
