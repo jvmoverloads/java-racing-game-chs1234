@@ -2,7 +2,7 @@ package controller;
 
 import model.Cars;
 import util.InputValidator;
-import view.InputView;
+import view.RacingGameView;
 
 public class GameController {
 
@@ -16,10 +16,10 @@ public class GameController {
     }
 
     private void init() {
-        InputView.askCarNames();
-        initCars(InputView.getConsoleInput());
-        InputView.askTryCount();
-        initTryCount(InputView.getConsoleInput());
+        RacingGameView.askCarNames();
+        initCars(RacingGameView.getConsoleInput());
+        RacingGameView.askTryCount();
+        initTryCount(RacingGameView.getConsoleInput());
     }
 
     private void initCars(final String carNames) {

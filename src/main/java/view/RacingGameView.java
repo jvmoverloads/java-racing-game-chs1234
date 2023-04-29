@@ -2,8 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-public class InputView {
-
+public class RacingGameView {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void askCarNames() {
@@ -16,5 +15,13 @@ public class InputView {
 
     public static String getConsoleInput() {
         return scanner.nextLine();
+    }
+
+    public static void printText(String text) {
+        System.out.println(text);
+    }
+
+    public static void printLine() {
+        System.out.println();
     }
 }

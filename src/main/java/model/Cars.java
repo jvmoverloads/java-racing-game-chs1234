@@ -1,7 +1,7 @@
 package model;
 
 import util.InputValidator;
-import view.ResultView;
+import view.RacingGameView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,11 +22,10 @@ public class Cars {
         cars.forEach(Car::move);
     }
 
-    // inputview, resultview -> gameview 한번 더 추상화, 응집도 높이기.
     public void moveResult() {
-        ResultView.printText("실행 결과");
+        RacingGameView.printText("실행 결과");
         cars.forEach(Car::printCurrPosition);
-        ResultView.printLine();
+        RacingGameView.printLine();
     }
 
     public void pickWinners() {
@@ -34,6 +33,6 @@ public class Cars {
         StringBuilder result = new StringBuilder();
         cars.forEach(car -> result.append(car.getNameIfWin(winnerPosition)));
         String winners = result.substring(0, result.length() - 2);
-        ResultView.printText(winners + "가 최종 우승했습니다.");
+        RacingGameView.printText(winners + "가 최종 우승했습니다.");
     }
 }
