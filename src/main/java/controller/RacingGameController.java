@@ -4,7 +4,7 @@ import model.Cars;
 import util.InputValidator;
 import view.RacingGameView;
 
-public class GameController {
+public class RacingGameController {
 
     private Cars cars;
     private int tryCount;
