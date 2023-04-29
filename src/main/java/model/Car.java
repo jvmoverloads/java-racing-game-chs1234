@@ -1,11 +1,12 @@
 package model;
 
+import service.Movable;
 import view.RacingGameView;
 
 public class Car {
 
     private final CarName name;
-    private final Position position;
+    private Position position;
 
     public Car(String name) {
         this(name, 0);
@@ -16,26 +17,26 @@ public class Car {
         this.position = new Position(position);
     }
 
-    public void move() {
-        if (!position.canMove())
+    public void move(Movable moveStrategy) {
+        if (!moveStrategy.canMove())
             return;
 
-        position.increasePosition();
+        this.position = this.position.increasePosition();
     }
 
     public void printCurrPosition() {
         RacingGameView.printText(
-                name.getName() + " : " + position.indicateCharacterByPosition()
+                name.getName() + " : " + position.getPosition()
         );
     }
 
     public int getCurrentPosition() {
-        return position.getPosition();
+        return position.getPosition().length();
     }
 
     public String getNameIfWin(int winnerPosition) {
-        if (position.getPosition() == winnerPosition)
-            return name.getName() + ", ";
+        if (position.getPosition().length() == winnerPosition)
+            return name.getName();
 
         return "";
     }
