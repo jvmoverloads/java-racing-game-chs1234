@@ -1,6 +1,7 @@
 package model;
 
-import view.ResultView;
+import util.PositionIndicator;
+import view.RacingGameView;
 
 public class Car {
 
@@ -24,9 +25,9 @@ public class Car {
     }
 
     public void printCurrPosition() {
-        String display = "-".repeat(Math.max(0, position.getPosition()));
-        ResultView.printText(name.getName() + ": " + display);
-//        ResultView.printText(name.getName() + ": " + position.getPosition());
+        RacingGameView.printText(
+                name.getName() + " : " + PositionIndicator.indicateCharacterByPosition(position.getPosition())
+        );
     }
 
     public int getCurrentPosition() {
