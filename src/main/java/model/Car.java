@@ -1,10 +1,10 @@
 package model;
 
-import view.ResultView;
+import view.RacingGameView;
 
 public class Car {
 
-    private final Name name;
+    private final CarName name;
     private final Position position;
 
     public Car(String name) {
@@ -12,7 +12,7 @@ public class Car {
     }
 
     public Car(String name, int position) {
-        this.name = new Name(name);
+        this.name = new CarName(name);
         this.position = new Position(position);
     }
 
@@ -24,9 +24,9 @@ public class Car {
     }
 
     public void printCurrPosition() {
-        String display = "-".repeat(Math.max(0, position.getPosition()));
-        ResultView.printText(name.getName() + ": " + display);
-//        ResultView.printText(name.getName() + ": " + position.getPosition());
+        RacingGameView.printText(
+                name.getName() + " : " + position.indicateCharacterByPosition()
+        );
     }
 
     public int getCurrentPosition() {

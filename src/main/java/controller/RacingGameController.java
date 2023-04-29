@@ -1,10 +1,11 @@
 package controller;
 
+import exception.InvalidTryCountException;
 import model.Cars;
-import util.InputValidator;
+import properties.ErrorMessage;
 import view.RacingGameView;
 
-public class GameController {
+public class RacingGameController {
 
     private Cars cars;
     private int tryCount;
@@ -27,7 +28,19 @@ public class GameController {
     }
 
     private void initTryCount(final String tryCount) {
-        this.tryCount = InputValidator.getTryCount(tryCount);
+        this.tryCount = parsedTryCount(tryCount);
+    }
+
+    private int parsedTryCount(String tryCount) {
+        try {
+            int parsedTryCount = Integer.parseInt(tryCount);
+            if (parsedTryCount <= 0)
+                throw new InvalidTryCountException(ErrorMessage.TryCount.NOT_POSITIVE_NUMBER);
+
+            return parsedTryCount;
+        } catch (IllegalArgumentException e) {
+            throw new InvalidTryCountException(ErrorMessage.TryCount.NOT_POSITIVE_NUMBER);
+        }
     }
 
     private void race() {

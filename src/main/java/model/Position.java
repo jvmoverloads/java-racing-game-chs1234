@@ -6,6 +6,8 @@ public class Position {
 
     private static final int MOVE_CONDITION = 4;
 
+    private static final String DISPLAY_CHARACTER = "-";
+
     public Position(int position) {
         this.position = position;
     }
@@ -24,5 +26,9 @@ public class Position {
 
     public int createRandomNumber() {
         return (int) (Math.random() * 10);
+    }
+
+    public String indicateCharacterByPosition() {
+        return DISPLAY_CHARACTER.repeat(Math.max(0, position));
     }
 }
