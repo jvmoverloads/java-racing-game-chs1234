@@ -12,8 +12,6 @@ public class ErrorMessage {
     }
 
     public static class TryCount {
-        public static final String NOT_ALLOW_EMPTY_OR_CONTAINS_WHITE_SPACE = "[ERROR] 공백 혹은 빈 값이 포함되어 있습니다.";
-        public static final String NOT_INCLUDE_ZERO_COUNT = "[ERROR] 시도 횟수 입력값은 0을 포함할 수 없습니다.";
-        public static final String NOT_INTEGER = "[ERROR] 시도 횟수 입력값은 정수여야만 합니다.";
+        public static final String NOT_POSITIVE_NUMBER = "[ERROR] 시도 횟수 입력값은 1 이상의 정수여야만 합니다.";
     }
 }

@@ -1,11 +1,10 @@
 package model;
 
-import util.PositionIndicator;
 import view.RacingGameView;
 
 public class Car {
 
-    private final Name name;
+    private final CarName name;
     private final Position position;
 
     public Car(String name) {
@@ -13,7 +12,7 @@ public class Car {
     }
 
     public Car(String name, int position) {
-        this.name = new Name(name);
+        this.name = new CarName(name);
         this.position = new Position(position);
     }
 
@@ -26,7 +25,7 @@ public class Car {
 
     public void printCurrPosition() {
         RacingGameView.printText(
-                name.getName() + " : " + PositionIndicator.indicateCharacterByPosition(position.getPosition())
+                name.getName() + " : " + position.indicateCharacterByPosition()
         );
     }
 
