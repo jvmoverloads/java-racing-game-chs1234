@@ -14,4 +14,8 @@ public class ErrorMessage {
     public static class TryCount {
         public static final String NOT_POSITIVE_NUMBER = "[ERROR] 시도 횟수 입력값은 1 이상의 정수여야만 합니다.";
     }
+
+    public static class Position {
+        public static final String NOT_POSITIVE_NUMBER = "[ERROR] 위치 값은 음수일 수 없습니다.";
+    }
 }

@@ -3,15 +3,17 @@ package model;
 
 import exception.InvalidCarNameException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import properties.ErrorMessage;
+import service.Movable;
 
+import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CarsTest {
 
@@ -21,6 +23,34 @@ class CarsTest {
     void test(String parameter, String name) {
         InvalidCarNameException invalidCarNameException = assertThrows(InvalidCarNameException.class, () -> new Cars(parameter));
         assertEquals(name, invalidCarNameException.getMessage());
+    }
+
+    @Test
+    @DisplayName("가장 멀리간 자동차의 position은 winnerPosition이다")
+    void test2() {
+        Cars cars = new Cars("ko,ho,seung");
+        cars.move(() -> true);
+        assertEquals(cars.getWinnerPosition(), 1);
+    }
+
+    @Test
+    @DisplayName("우승자의 position으로 우승자들의 이름을 가져온다.")
+    void test3() {
+        Movable movable = () -> true;
+
+        var porsche = new Car("포르쉐");
+        porsche.move(movable);
+
+        var zhivagen = new Car("지바겐");
+        zhivagen.move(movable);
+        zhivagen.move(movable);
+
+        var lamborghini = new Car("람보르기니");
+        lamborghini.move(movable);
+        lamborghini.move(movable);
+
+        var cars = new Cars(List.of(porsche, zhivagen, lamborghini));
+        assertTrue(cars.findWinnerNamesByPosition(2).toString().contains("지바겐, 람보르기니"));
     }
 
     static Stream<Arguments> invalidParameters() {

@@ -2,16 +2,23 @@ package model;
 
 import exception.InvalidCarNameException;
 import properties.ErrorMessage;
+import service.Movable;
 import view.RacingGameView;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Cars {
     private final List<Car> cars;
 
     private static final String CAR_NAME_DELIMITER = ",";
+
+    public Cars(List<Car> cars) {
+        this.cars = cars;
+    }
 
     public Cars(String carNames) {
         this.cars = makeCars(carNames);
@@ -22,8 +29,8 @@ public class Cars {
         return parsedCarNames(carNames).stream().map(Car::new).toList();
     }
 
-    public void move() {
-        cars.forEach(Car::move);
+    public void move(Movable moveStrategy) {
+        cars.forEach(car -> car.move(moveStrategy));
     }
 
     public void moveResult() {
@@ -32,12 +39,19 @@ public class Cars {
         RacingGameView.printLine();
     }
 
-    public void pickWinners() {
-        int winnerPosition = cars.stream().mapToInt(Car::getCurrentPosition).max().getAsInt();
+    public int getWinnerPosition() {
+        return cars.stream().mapToInt(Car::getCurrentPosition).max().getAsInt();
+    }
+
+    public List<String> findWinnerNamesByPosition(int winnerPosition) {
         StringBuilder result = new StringBuilder();
-        cars.forEach(car -> result.append(car.getNameIfWin(winnerPosition)));
-        String winners = result.substring(0, result.length() - 2);
-        RacingGameView.printText(winners + "가 최종 우승했습니다.");
+        cars.forEach(car ->
+                result.append(car.getNameIfWin(winnerPosition)).append(",")
+        );
+
+        return Stream.of(result.toString().split(","))
+                .filter(winner -> !winner.isBlank())
+                .collect(Collectors.toList());
     }
 
     private void validNames(String carNames) {
