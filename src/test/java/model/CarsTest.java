@@ -50,7 +50,7 @@ class CarsTest {
         lamborghini.move(movable);
 
         var cars = new Cars(List.of(porsche, zhivagen, lamborghini));
-        assertTrue(cars.findWinnerNamesByPosition(2).toString().contains("ho, seung"));
+        assertTrue(cars.findWinnerNamesByPosition(2).toString().contains("지바겐, 람보르기니"));
     }
 
     static Stream<Arguments> invalidParameters() {
